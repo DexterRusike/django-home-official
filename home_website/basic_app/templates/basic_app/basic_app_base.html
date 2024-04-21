@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rusike</title>
+
+     <!-- Compiled and minified CSS -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+     <!-- Compiled and minified JavaScript -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+     <link rel="stylesheet" href="{% static 'basic_app/style.css' %}">
+
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+             
+</head>
+<body>
+    <nav>
+        <div class="nav-wrapper blue darken-2"> <!-- Change background color -->
+          <a href="#" class="brand-logo right">RUSIKE</a>
+          <ul id="nav-mobile" class="left hide-on-med-and-down">
+            <li><a href="{% url 'index' %}" class="white-text">Home</a></li> <!-- Change link text color -->
+            
+            <li><a href="{% url 'basic_app:register' %}" class="white-text">Register</a></li>
+            
+
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'basic_app:timesheet' %}" class="white-text">Timesheet</a></li>
+            <li><a href="{% url 'user_logout' %}" class="white-text">Logout</a></li>
+
+            {% else %}
+
+            <li><a href="{% url 'basic_app:user_login' %}" class="white-text">Login</a></li>
+
+            {% endif %}
+
+          </ul>
+        </div>
+      </nav>
+            
+
+    {% block body_block %}
+
+    {% endblock %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>

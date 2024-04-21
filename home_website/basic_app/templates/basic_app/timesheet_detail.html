@@ -1,0 +1,22 @@
+{% extends 'basic_app/basic_app_base.html' %}
+
+{% block body_block %}
+
+
+<div class="entry-container">
+    <div class="entry-header">
+      <h4>Your Timesheet Entry:</h4>
+    </div>
+    <div class="entry-content">
+      <p>Hello <span class="employee-name">[Employee Name]</span>,</p>
+      <div class="chore-details">
+        <p class="chore-name"><li>Chore Name: {{ hometimesheet_detail.chore_name }}</li></p>
+        <p class="day"><li>Day: {{ hometimesheet_detail.day }}</li></p>
+      </div>
+    </div>
+    <div class="entry-footer">
+      <p>If you have any questions or concerns, please feel free to contact us.</p>
+    </div>
+  </div>
+
+{% endblock %}

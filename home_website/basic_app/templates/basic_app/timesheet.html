@@ -1,0 +1,113 @@
+{% extends 'basic_app/basic_app_base.html' %}
+
+{% block body_block %}
+
+<p>.</p>
+
+
+<div class="row">
+
+<div class="col s3 m3">
+  <div class="custom-form-container">
+    <form method="POST" class="custom-form">
+      {% csrf_token %}
+      <label for="id_chore_name" class="custom-label">Chore Name:</label><br>
+      {{ form.chore_name }}
+      <br><br>
+      
+      <label for="id_day" class="custom-label">Day:</label><br>
+      {{ form.day }}
+      <br><br>
+      
+      <button type="submit" name="action" class="custom-submit-button" value="chore_submit">Submit
+        <i class="material-icons right">send</i>
+      </button>
+    </form>
+    
+  </div>
+</div>
+
+<div class="col s9 m9">
+  <table>
+    <thead>
+      <tr>
+        <th>Monday</th>
+        <th>Tuesday</th>
+        <th>Wednesday</th>
+        <th>Thursday</th>
+        <th>Friday</th>
+        <th>Saturday</th>
+        <th>Sunday</th>
+        <th>Actions</th> <!-- New column for actions -->
+      </tr>
+    </thead>
+    <tbody>
+      {% for timesheet in timesheets %}
+      <tr>
+        <td>{% if timesheet.day == 'Monday' %}{{ timesheet.chore_name }}{% endif %}</td>
+        <td>{% if timesheet.day == 'Tuesday' %}{{ timesheet.chore_name }}{% endif %}</td>
+        <td>{% if timesheet.day == 'Wednesday' %}{{ timesheet.chore_name }}{% endif %}</td>
+        <td>{% if timesheet.day == 'Thursday' %}{{ timesheet.chore_name }}{% endif %}</td>
+        <td>{% if timesheet.day == 'Friday' %}{{ timesheet.chore_name }}{% endif %}</td>
+        <td>{% if timesheet.day == 'Saturday' %}{{ timesheet.chore_name }}{% endif %}</td>
+        <td>{% if timesheet.day == 'Sunday' %}{{ timesheet.chore_name }}{% endif %}</td>
+        <td>
+          <!--<form action="{% url 'basic_app:update' pk=timesheet.pk %}" method="POST">
+            {% csrf_token %}
+            <button class="btn-custom update-btn btn waves-effect waves-light" type="submit" name="action" value="update">
+              Update
+              <i class="material-icons right">send</i>
+            </button>
+          </form>-->
+
+          <!--<a href="{{ timesheet.id }}">
+            <button class="btn-custom update-btn btn waves-effect waves-light" type="submit" name="action">
+              See more
+              <i class="material-icons right">send</i>
+            </button>
+          </a>-->
+
+          <a href="{% url 'basic_app:delete' pk=timesheet.pk %}">
+            <button class="btn-custom update-btn btn waves-effect waves-light" type="submit" name="action">
+              Delete
+              <!--<i class="material-icons right">send</i>-->
+            </button>
+          </a>
+
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+
+
+</div>
+
+
+
+<div class="row">
+  <div class="col s4 m4">
+    <div class="card salary-card">
+      <div class="card-content">
+        <span class="card-title">Week Salary</span>
+        <h4 class="salary-amount">
+          £{% if total_sum %}
+            {{ total_sum }}
+          {% endif %}
+        </h4>
+      </div>
+    </div>
+  </div>
+  <form action="{% url 'basic_app:reset_timesheets' %}" method="post">
+    {% csrf_token %}
+    <button class='btn-custom update-btn btn waves-effect waves-light' type="submit">Reset Timesheet</button>
+  </form>
+</div>
+
+
+
+
+
+{% endblock %}
